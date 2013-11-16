@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: xsel | Get9]]></title>
-  <link href="http://get9.ru//categories/xsel/atom.xml" rel="self"/>
-  <link href="http://get9.ru//"/>
-  <updated>2013-11-09T19:31:05+07:00</updated>
-  <id>http://get9.ru//</id>
+  <link href="http://n0b0dy.github.io/categories/xsel/atom.xml" rel="self"/>
+  <link href="http://n0b0dy.github.io/"/>
+  <updated>2013-11-16T20:04:28+07:00</updated>
+  <id>http://n0b0dy.github.io/</id>
   <author>
     <name><![CDATA[n0b0dy]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Keepass2 настройка работы с буфером обмена под Linux]]></title>
-    <link href="http://get9.ru//2013/02/04/keepass2/"/>
+    <link href="http://n0b0dy.github.io/2013/02/04/keepass2/"/>
     <updated>2013-02-04T20:22:00+07:00</updated>
-    <id>http://get9.ru//2013/02/04/keepass2</id>
+    <id>http://n0b0dy.github.io/2013/02/04/keepass2</id>
     <content type="html"><![CDATA[<p>Keepass2 под линуксом работает с буфером обмена иксов через одно место. Он в принципе копирует но вставить по меню правой кнопки все ровно не получается. Хотя это и зависит от приложения куда вы вставляете. Вот и получается что Keepass то вставляет то не вставляет.
 Но у Keepass2 есть триггеры, что методом костыля и какой то матери позволит решить проблему с буфером обмена.</p>
 

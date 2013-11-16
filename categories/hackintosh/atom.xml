@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: hackintosh | Get9]]></title>
-  <link href="http://get9.ru//categories/hackintosh/atom.xml" rel="self"/>
-  <link href="http://get9.ru//"/>
-  <updated>2013-11-09T19:31:05+07:00</updated>
-  <id>http://get9.ru//</id>
+  <link href="http://n0b0dy.github.io/categories/hackintosh/atom.xml" rel="self"/>
+  <link href="http://n0b0dy.github.io/"/>
+  <updated>2013-11-16T20:04:28+07:00</updated>
+  <id>http://n0b0dy.github.io/</id>
   <author>
     <name><![CDATA[n0b0dy]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Заводим hackintosh на z77a-g43 + 3570k]]></title>
-    <link href="http://get9.ru//2013/04/07/z77a-g43_3570K/"/>
+    <link href="http://n0b0dy.github.io/2013/04/07/z77a-g43_3570K/"/>
     <updated>2013-04-07T12:09:00+07:00</updated>
-    <id>http://get9.ru//2013/04/07/z77a-g43_3570K</id>
+    <id>http://n0b0dy.github.io/2013/04/07/z77a-g43_3570K</id>
     <content type="html"><![CDATA[<h2>Кат</h2>
 
 <p>Много времени прошло с тех пор как рассказывал как завести хакинтош на Z77A-G43 и ситуация поменялась в лучшую сторону.
@@ -125,9 +125,9 @@ bcfg boot add 00 fs0:\EFI\BOOT\CLOVERX64.efi "Mac OS X"
   
   <entry>
     <title type="html"><![CDATA[Установка hackintosh на MSI Z77A-G43]]></title>
-    <link href="http://get9.ru//2012/11/20/z77a-g43-hackintosh/"/>
+    <link href="http://n0b0dy.github.io/2012/11/20/z77a-g43-hackintosh/"/>
     <updated>2012-11-20T21:15:00+07:00</updated>
-    <id>http://get9.ru//2012/11/20/z77a-g43-hackintosh</id>
+    <id>http://n0b0dy.github.io/2012/11/20/z77a-g43-hackintosh</id>
     <content type="html"><![CDATA[<h2>Железо</h2>
 
 <p>Основной проблемой для работы hackintosh является
@@ -189,9 +189,9 @@ TurboBoost. Патченый AppleIntelCpuPowerManagement.kext уменя на 1
   
   <entry>
     <title type="html"><![CDATA[Создание DSDT для MSI Z77A-G43]]></title>
-    <link href="http://get9.ru//2012/10/26/z77a-g43-dsdt/"/>
+    <link href="http://n0b0dy.github.io/2012/10/26/z77a-g43-dsdt/"/>
     <updated>2012-10-26T20:39:00+07:00</updated>
-    <id>http://get9.ru//2012/10/26/z77a-g43-dsdt</id>
+    <id>http://n0b0dy.github.io/2012/10/26/z77a-g43-dsdt</id>
     <content type="html"><![CDATA[<h2>Создание DSDT</h2>
 
 <p>План работ:</p>

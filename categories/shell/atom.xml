@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: shell | Get9]]></title>
-  <link href="http://get9.ru//categories/shell/atom.xml" rel="self"/>
-  <link href="http://get9.ru//"/>
-  <updated>2013-11-09T19:31:05+07:00</updated>
-  <id>http://get9.ru//</id>
+  <link href="http://n0b0dy.github.io/categories/shell/atom.xml" rel="self"/>
+  <link href="http://n0b0dy.github.io/"/>
+  <updated>2013-11-16T20:04:28+07:00</updated>
+  <id>http://n0b0dy.github.io/</id>
   <author>
     <name><![CDATA[n0b0dy]]></name>
     
@@ -15,13 +15,13 @@
   
   <entry>
     <title type="html"><![CDATA[Запуск shell]]></title>
-    <link href="http://get9.ru//2013/10/12/shell-startup-files/"/>
+    <link href="http://n0b0dy.github.io/2013/10/12/shell-startup-files/"/>
     <updated>2013-10-12T05:21:00+07:00</updated>
-    <id>http://get9.ru//2013/10/12/shell-startup-files</id>
+    <id>http://n0b0dy.github.io/2013/10/12/shell-startup-files</id>
     <content type="html"><![CDATA[<p>В разных shell оболочках есть множество файлов запускающихся сразу при запуске, чтобы установить пременные окружения
 и другие функции автолматизации.</p>
 
-<p>Иногда забываеш что и когда запускается и тогда нужно лезть в <code>man</code> что бывает не всегда удобно.</p>
+<p>Временами это вылетает из головы а лезть в <code>man</code> неохота? Так что это заметка скорее для себя, но если кому то она окажется полезной это хороше.</p>
 
 <!-- more -->
 
@@ -29,13 +29,13 @@
 <p>Shell бывает:</p>
 
 <ul>
-<li>login - тот который прописан увас в /etc/passwd ну или запуск со флагом включяющий эту функцию</li>
+<li>login - тот который прописан увас в /etc/passwd или запущен с опредиленным флагом. Он на то и loing чтобы запускаться утилитой login.</li>
 <li>интерактивный - тот под которым вы работаете в интерактивном режиме.</li>
 <li>обычный - это тот в котором запускаються скрипты.</li>
 </ul>
 
 
-<p>shell  который вы по умолчанию запускаете из иксов в виртуальном-терминале не являеться логин сшеллом, потому что вы уже авторизированы,</p>
+<p>shell  который вы по умолчанию запускаете из иксов в виртуальном-терминале не являеться логин сшеллом, потому что вы уже авторизированы.</p>
 
 <h2>bash</h2>
 

@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://get9.ru//sitemap.xml 
+Sitemap: http://n0b0dy.github.io/sitemap.xml 

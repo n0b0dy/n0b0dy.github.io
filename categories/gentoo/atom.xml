@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: gentoo | Get9]]></title>
-  <link href="http://get9.ru//categories/gentoo/atom.xml" rel="self"/>
-  <link href="http://get9.ru//"/>
-  <updated>2013-11-09T19:31:05+07:00</updated>
-  <id>http://get9.ru//</id>
+  <link href="http://n0b0dy.github.io/categories/gentoo/atom.xml" rel="self"/>
+  <link href="http://n0b0dy.github.io/"/>
+  <updated>2013-11-16T20:04:28+07:00</updated>
+  <id>http://n0b0dy.github.io/</id>
   <author>
     <name><![CDATA[n0b0dy]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Gentoo deploy tools обзор]]></title>
-    <link href="http://get9.ru//2013/01/22/gentoo-deploy-tools-review/"/>
+    <link href="http://n0b0dy.github.io/2013/01/22/gentoo-deploy-tools-review/"/>
     <updated>2013-01-22T19:45:00+07:00</updated>
-    <id>http://get9.ru//2013/01/22/gentoo-deploy-tools-review</id>
+    <id>http://n0b0dy.github.io/2013/01/22/gentoo-deploy-tools-review</id>
     <content type="html"><![CDATA[<p><a href="https://github.com/n0b0dy/gentoo-deploy-tools">Gentoo deploy tools</a> - набор маленьких скриптов версии 0.5.0 для облегчения начальной установки Gentoo, чтобы во время разворачивания не делать множество телодвижений.</p>
 
 <!-- more -->
