@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: hackintosh | Get9]]></title>
+  <link href="http://get9.ru//categories/hackintosh/atom.xml" rel="self"/>
+  <link href="http://get9.ru//"/>
+  <updated>2013-11-09T19:31:05+07:00</updated>
+  <id>http://get9.ru//</id>
+  <author>
+    <name><![CDATA[n0b0dy]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Заводим hackintosh на z77a-g43 + 3570k]]></title>
+    <link href="http://get9.ru//2013/04/07/z77a-g43_3570K/"/>
+    <updated>2013-04-07T12:09:00+07:00</updated>
+    <id>http://get9.ru//2013/04/07/z77a-g43_3570K</id>
+    <content type="html"><![CDATA[<h2>Кат</h2>
+
+<p>Много времени прошло с тех пор как рассказывал как завести хакинтош на Z77A-G43 и ситуация поменялась в лучшую сторону.
+Поэтому нужна новая инструкция. Сейчас хакинтош на Z77A-G43 + i5 3570k полностью работоспособный и работает стабильно.
+Что проверено недельными испытаниями. Засыпает и просыпается уже неделю без сбоев. На этот раз заводить мы будем все через clover, c UEFI загрузкой.</p>
+
+<!-- more -->
+
+
+<h2>AppleIntelCPUPowerManagement</h2>
+
+<p>Нужно нативно завести AppleIntelCPUPowerManagement.kext
+Для этого есть 2 варианта: патчить UEFI-BIOS или kext.
+Clover пропатчит kext на лету, но сон работать не будет. Если такой вариант устраивает то нужно чтобы в  config.plist была следующая настройка.
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;key>KernelAndKextPatches&lt;/key>&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>&lt;dict&gt;
+</span><span class='line'>    &lt;key&gt;AsusAICPUPM&lt;/key&gt;
+</span><span class='line'>    &lt;string&gt;Yes&lt;/string&gt;
+</span><span class='line'>&lt;/dict&gt;
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></notextile></div>
+Если нужен сон, то нужно перепрошить UEFI-BIOS на модифицированный. В архиве версия 2.8.</p>
+
+<h2>UEFI-BIOS</h2>
+
+<p>Настройки UEFI-BIOS нужно выставить как на картинке, за исключением множителя процессора.
+Советую предварительно поставить настройки по умолчянию.</p>
+
+<p><img src="/files/images/z77a-g43/MSI_SnapShot.jpg" title="" >
+<img src="/files/images/z77a-g43/MSI_SnapShot_00.jpg">
+<img src="/files/images/z77a-g43/MSI_SnapShot_01.jpg"></p>
+
+<h2>Clover UEFI</h2>
+
+<p>Кидаем папочку EFI на загрузочный EFI раздел, и загружаемся через efi shell по клавише F11.
+Я не буду описывать создание загрузочного EFI раздела, в интернете полно инструкций как это сделать.
+Если все нормально то прописываем загрузку кловера.</p>
+
+<h2>UEFI Shell</h2>
+
+<p>В у msi забыли добавить в uefi shell утилиту bcfg.
+Поэтому нужно загрузить другой shell, где данная утилита есть(ссылка в конце). Жмем F11 и попадаем в в меню выбора загрузки.
+Выбираем UEFI: Built-in EFI Shell</p>
+
+<p><img src="/files/images/z77a-g43/MSI_uefi00.jpg">
+При заходе в shell нам показываются смонтированные диски на которые мы можем зайти.</p>
+
+<p><img src="/files/images/z77a-g43/MSI_uefi01.jpg">
+У меня флэшка отображается как fs4 и для экспериментальных загрузок с usb я сделал алиас для загрузки кловера.</p>
+
+<pre><code>alias mac fs4:\EFI\BOOT\CLOVERX64.efi
+</code></pre>
+
+<p>Заходим на флэшку и загрушаем новый новый uefi shell, чтобы добавить свой вариант загрузки</p>
+
+<pre><code>fs4:           # переход в корень флэшки
+shellx64.efi   # запускаем другой shell
+bcfg boot dump # смотрим какие варианты загрузки есть
+</code></pre>
+
+<p>Кловер должен лежать на efi раздели жесткого диска, по умолчянию fs0:</p>
+
+<pre><code>bcfg boot add [номер записи] [Какой из файлов грузить] [название]
+bcfg boot add 00 fs0:\EFI\BOOT\CLOVERX64.efi "Mac OS X"
+</code></pre>
+
+<p>Справка по bcfg</p>
+
+<pre><code>bcfg -? -v
+</code></pre>
+
+<h2>Sandy Bridge</h2>
+
+<p>Владельцам Sandy Bridge нужно будет поправить config.plist.
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;key>GenerateIvyStates&lt;/key>
+</span><span class='line'>&lt;string>No&lt;/string></span></code></pre></td></tr></table></div></figure></notextile></div>
+Также нужно удалить секцию SMBIOS.</p>
+
+<h2>P.S.</h2>
+
+<p>В папочке PostInstall лежит kext для аудио и Kext Utility для установки.
+остальные kext инжектирует кловер.</p>
+
+<ul>
+<li><a href="http://bit.ly/16Fryx7">Полный архив  Clover+OEM+UEFI-BIOS</a> 13Mb</li>
+<li><a href="http://bit.ly/XwMyWm">Отдельно папка OEM</a> 972Kb</li>
+<li><a href="http://bit.ly/10IZo0y">EFI-SHELL</a> 260Kb</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Установка hackintosh на MSI Z77A-G43]]></title>
+    <link href="http://get9.ru//2012/11/20/z77a-g43-hackintosh/"/>
+    <updated>2012-11-20T21:15:00+07:00</updated>
+    <id>http://get9.ru//2012/11/20/z77a-g43-hackintosh</id>
+    <content type="html"><![CDATA[<h2>Железо</h2>
+
+<p>Основной проблемой для работы hackintosh является
+процессор, материнская плата и видео карта. И чтобы все завелось, нужно
+чтобы железо было максимально похоже на железо оригинальных маков.
+Ставить мак ос будем на следующую конфигурацию:</p>
+
+<ul>
+<li>cpu: i5-3570k</li>
+<li> mb: msi z77a-g43</li>
+<li>video: intel HD4000</li>
+</ul>
+
+
+<!-- more -->
+
+
+<h2>Материнская плата</h2>
+
+<p>msi z77a-g43 не является идеальным вариантом для мак ос, она имеет залоченную
+msr таблицу от записи. Чтобы обойти эту проблему есть несколько способов:</p>
+
+<ul>
+<li>использовать nullcpupowermanagement</li>
+<li>использовать  патченый AppleIntelCpuPowerManagement.kext</li>
+<li>модифицировать UEFI-Bios</li>
+</ul>
+
+
+<p>Вариант с nullcpupowermanagement отпадает сразу так как нам нужен работающий,
+TurboBoost. Патченый AppleIntelCpuPowerManagement.kext уменя на 10.8.2 не
+заработал с теми настройками UEFI которые я хотел. А вот модификация UEFI
+сработала на все 100%.</p>
+
+<p>Есть репозиторий с уже модифицированными UEFI
+<a href="http://biosrepo.wordpress.com/msi/">UEFI-BIOS repository</a> ищем нужный UEFI и прошиваем.
+У msi вы можете предварительно загрузить UEFI с флэшки
+и проверить работу. Более подробно о модификации других UEFI-BIOS
+можно прочитать на <a href="http://www.tonymacx86.com/dsdt/71307-modified-uefi-rom-faq.html#post443477">tonymacx86.com</a></p>
+
+<h2>Крутим DSDT</h2>
+
+<p>Нам не хватает еще DSDT. Можно воспользоваться тем который выкладывают, но
+лучше сделать самим. И тем более нужно делать самим если оборудование отличается.
+Извлекаем DSDT и правим её. Это можно спокойно делать под Windows или Linux.
+<a href="http://legacy.tonymacx86.com/viewtopic.php?f=14&amp;t=68835">Оригинальный гайд по правке DSDT для msi z77a-g43</a>
+или
+<a href="/2012/10/26/z77a-g43-dsdt/"> Перевод правке DSDT для msi z77a-g43 </a></p>
+
+<h2>Kext</h2>
+
+<p>Дальше устанавливаем Mountain Lion на диск с GPT разметкой.
+Что не должно вызвать проблем. И загружаемся.
+Качаем <a href="http://www.tonymacx86.com/downloads.php?do=cat&amp;id=3">MultiBeast</a> (чтобы не искать kext по отдельности) и устанавливаем.
+Отмечаем следующие галочки.
+<img src="/files/images/g43-hackintosh.png" width="200"></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Создание DSDT для MSI Z77A-G43]]></title>
+    <link href="http://get9.ru//2012/10/26/z77a-g43-dsdt/"/>
+    <updated>2012-10-26T20:39:00+07:00</updated>
+    <id>http://get9.ru//2012/10/26/z77a-g43-dsdt</id>
+    <content type="html"><![CDATA[<h2>Создание DSDT</h2>
+
+<p>План работ:</p>
+
+<ul>
+<li>Извлекаем DSDT</li>
+<li>Исправляем ошибки</li>
+<li>Обзываем девайсы как у Apple</li>
+<li>Добавляем DGTP метод</li>
+</ul>
+
+
+<!-- more -->
+
+
+<p>1.Запускаем DSDT редактор и выбираем "File > Extract DSDT".</p>
+
+<p>2.В DSDT редакторе выбираем "IASL > Compile", в появившемся окне будет куча
+ошибок и предупреждений. Двойной клик на ошибке и переходим на место проблемы.</p>
+
+<p><strong>2226 Warning ResourceTag larger than Field (Tag: 64 bits, Field: 32 bits)</strong>
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Было </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>CreateDWordField (BUF0, _SB.PCI0.&lt;em>Y0F.&lt;/em>LEN, MSLN)</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Стало </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>CreateQWordField (BUF0, _SB.PCI0.&lt;em>Y0F.&lt;/em>LEN, MSLN)</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><strong>3318 Warning Result is not used, possible operator timeout will be missed</strong></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Было</span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Acquire (MUT0, 0x0FFF)</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Стало</span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Acquire (MUT0, 0xFFFF)</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><strong>8787 Warning Not all control paths return a value (_DSM)</strong></p>
+
+<p><strong>8787 Warning Reserved method must return a value (Integer/String/Buffer/Package/Reference required for _DSM)</strong></p>
+
+<p>Нужно добавить <code>Return (Zero)</code> перед последней скобкой метода.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Было  </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Method (_DSM, 4, Serialized)
+</span><span class='line'>{&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>Name (DRET, Buffer (0x04)
+</span><span class='line'>{
+</span><span class='line'>     0x00
+</span><span class='line'>})
+</span><span class='line'>If (LEqual (Arg0, Buffer (0x10)
+</span><span class='line'>        {
+</span><span class='line'>            /* 0000 */   0xE1, 0x75, 0x39, 0x6F, 0x82, 0x7A, 0x67, 0x4F,
+</span><span class='line'>            /* 0008 */   0x8B, 0x97, 0x15, 0xBE, 0xE0, 0x60, 0xBE, 0xDF
+</span><span class='line'>        }))
+</span><span class='line'>{
+</span><span class='line'>    If (LEqual (Arg2, Zero))
+</span><span class='line'>    {
+</span><span class='line'>        CreateWordField (DRET, Zero, F0SS)
+</span><span class='line'>        Store (0x02, F0SS)
+</span><span class='line'>        Return (DRET)
+</span><span class='line'>    }
+</span><span class='line'>    If (LEqual (Arg2, One))
+</span><span class='line'>    {
+</span><span class='line'>        If (LEqual (^^PEG0.PEGP.LNKV, 0x03))
+</span><span class='line'>        {
+</span><span class='line'>            Return (Zero)
+</span><span class='line'>        }
+</span><span class='line'>        Return (One)
+</span><span class='line'>    }
+</span><span class='line'>}
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p>}</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Стало</span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Method (_DSM, 4, Serialized)
+</span><span class='line'>{&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>Name (DRET, Buffer (0x04)
+</span><span class='line'>{
+</span><span class='line'>     0x00
+</span><span class='line'>})
+</span><span class='line'>If (LEqual (Arg0, Buffer (0x10)
+</span><span class='line'>        {
+</span><span class='line'>            /* 0000 */   0xE1, 0x75, 0x39, 0x6F, 0x82, 0x7A, 0x67, 0x4F,
+</span><span class='line'>            /* 0008 */   0x8B, 0x97, 0x15, 0xBE, 0xE0, 0x60, 0xBE, 0xDF
+</span><span class='line'>        }))
+</span><span class='line'>{
+</span><span class='line'>    If (LEqual (Arg2, Zero))
+</span><span class='line'>    {
+</span><span class='line'>        CreateWordField (DRET, Zero, F0SS)
+</span><span class='line'>        Store (0x02, F0SS)
+</span><span class='line'>        Return (DRET)
+</span><span class='line'>    }
+</span><span class='line'>    If (LEqual (Arg2, One))
+</span><span class='line'>    {
+</span><span class='line'>        If (LEqual (^^PEG0.PEGP.LNKV, 0x03))
+</span><span class='line'>        {
+</span><span class='line'>            Return (Zero)
+</span><span class='line'>        }
+</span><span class='line'>        Return (One)
+</span><span class='line'>    }
+</span><span class='line'>}
+</span><span class='line'>Return (Zero)
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p>}</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><strong>10113 Warning Not all control paths return a value (_HID)</strong></p>
+
+<p><strong>10113 Warning Reserved method must return a value (Integer/String required for _HID)</strong></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Было </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Method (_HID, 0, NotSerialized)
+</span><span class='line'>{&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>If (TCMF) {}
+</span><span class='line'>Else
+</span><span class='line'>{
+</span><span class='line'>    Return (0x310CD041)
+</span><span class='line'>}
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p>}</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Стало</span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Method (_HID, 0, NotSerialized)
+</span><span class='line'>{&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>If (TCMF)
+</span><span class='line'>{
+</span><span class='line'>    Return (Zero)
+</span><span class='line'>}
+</span><span class='line'>Else
+</span><span class='line'>{
+</span><span class='line'>    Return (0x310CD041)
+</span><span class='line'>}
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p>}</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><strong>5626 Remark Use of compiler reserved name (_T_0)</strong></p>
+
+<p><strong>10350 Remark Use of compiler reserved name (_T_1)</strong></p>
+
+<p>Чтобы избавится от предупреждений заменяем <code>_T_</code> на <code>T_</code></p>
+
+<p>3.Переименовываем девайсы</p>
+
+<p>Заменяем все <code>GFX0</code> на <code>IGPU</code>
+Заменяем все <code>COPR</code> на <code>MATH</code></p>
+
+<ol>
+<li>Добавляем DGTP метод</li>
+</ol>
+
+
+<p>Метод нужен для корректной работы патченого HDEF драйвера.
+Вставляем данный метод перед последней скобкой <code>}</code>, после <code>WAK</code> метода.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Вставить</span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Method (DTGP, 5, NotSerialized)
+</span><span class='line'>{&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>If (LEqual (Arg0, Buffer (0x10)
+</span><span class='line'>        {
+</span><span class='line'>            /* 0000 */    0xC6, 0xB7, 0xB5, 0xA0, 0x18, 0x13, 0x1C, 0x44,
+</span><span class='line'>            /* 0008 */    0xB0, 0xC9, 0xFE, 0x69, 0x5E, 0xAF, 0x94, 0x9B
+</span><span class='line'>        }))
+</span><span class='line'>{
+</span><span class='line'>    If (LEqual (Arg1, One))
+</span><span class='line'>    {
+</span><span class='line'>        If (LEqual (Arg2, Zero))
+</span><span class='line'>        {
+</span><span class='line'>            Store (Buffer (One)
+</span><span class='line'>                {
+</span><span class='line'>                    0x03
+</span><span class='line'>                }, Arg4)
+</span><span class='line'>            Return (One)
+</span><span class='line'>        }
+</span><span class='line'>        If (LEqual (Arg2, One))
+</span><span class='line'>        {
+</span><span class='line'>            Return (One)
+</span><span class='line'>        }
+</span><span class='line'>    }
+</span><span class='line'>}
+</span><span class='line'>Store (Buffer (One)
+</span><span class='line'>    {
+</span><span class='line'>        0x00
+</span><span class='line'>    }, Arg4)
+</span><span class='line'>Return (Zero)
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p>}</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+]]></content>
+  </entry>
+  
+</feed>

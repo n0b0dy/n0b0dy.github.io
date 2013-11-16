@@ -1,0 +1,295 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Заводим hackintosh на z77a-g43 + 3570k - Get9</title>
+	<meta name="author" content="n0b0dy">
+
+	
+	<meta name="description" content="Кат Много времени прошло с тех пор как рассказывал как завести хакинтош на Z77A-G43 и ситуация поменялась в лучшую сторону.
+Поэтому нужна новая &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/get9/atom.xml" rel="alternate" title="Get9" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+	
+</head>
+
+<body>
+	<header id="header" class="inner"><h1><a id="logo" href="/">Get9</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Блог</a></li>
+	<li><a href="/blog/archives">Архив</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Блог</a></li>
+	<li><a href="/blog/archives">Архив</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:get9.ru/">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		<a class="twitter" href="http://twitter.com/n0b0dy_nvkz" title="Twitter">Twitter</a>
+		
+		
+		<a class="github" href="https://github.com/n0b0dy" title="GitHub">GitHub</a>
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/get9/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:get9.ru/">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Заводим hackintosh на z77a-g43 + 3570k</h2>
+	<div class="entry-content"><h2>Кат</h2>
+
+<p>Много времени прошло с тех пор как рассказывал как завести хакинтош на Z77A-G43 и ситуация поменялась в лучшую сторону.
+Поэтому нужна новая инструкция. Сейчас хакинтош на Z77A-G43 + i5 3570k полностью работоспособный и работает стабильно.
+Что проверено недельными испытаниями. Засыпает и просыпается уже неделю без сбоев. На этот раз заводить мы будем все через clover, c UEFI загрузкой.</p>
+
+<!-- more -->
+
+
+<h2>AppleIntelCPUPowerManagement</h2>
+
+<p>Нужно нативно завести AppleIntelCPUPowerManagement.kext
+Для этого есть 2 варианта: патчить UEFI-BIOS или kext.
+Clover пропатчит kext на лету, но сон работать не будет. Если такой вариант устраивает то нужно чтобы в  config.plist была следующая настройка.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;key>KernelAndKextPatches&lt;/key>
+</span><span class='line'>    &lt;dict>
+</span><span class='line'>        &lt;key>AsusAICPUPM&lt;/key>
+</span><span class='line'>        &lt;string>Yes&lt;/string>
+</span><span class='line'>    &lt;/dict></span></code></pre></td></tr></table></div></figure>
+
+
+<p>Если нужен сон, то нужно перепрошить UEFI-BIOS на модифицированный. В архиве версия 2.8.</p>
+
+<h2>UEFI-BIOS</h2>
+
+<p>Настройки UEFI-BIOS нужно выставить как на картинке, за исключением множителя процессора.
+Советую предварительно поставить настройки по умолчянию.</p>
+
+<p><img src="/files/images/z77a-g43/MSI_SnapShot.jpg" title="" >
+<img src="/files/images/z77a-g43/MSI_SnapShot_00.jpg">
+<img src="/files/images/z77a-g43/MSI_SnapShot_01.jpg"></p>
+
+<h2>Clover UEFI</h2>
+
+<p>Кидаем папочку EFI на загрузочный EFI раздел, и загружаемся через efi shell по клавише F11.
+Я не буду описывать создание загрузочного EFI раздела, в интернете полно инструкций как это сделать.
+Если все нормально то прописываем загрузку кловера.</p>
+
+<h2>UEFI Shell</h2>
+
+<p>В у msi забыли добавить в uefi shell утилиту bcfg.
+Поэтому нужно загрузить другой shell, где данная утилита есть(ссылка в конце). Жмем F11 и попадаем в в меню выбора загрузки.
+Выбираем UEFI: Built-in EFI Shell</p>
+
+<p><img src="/files/images/z77a-g43/MSI_uefi00.jpg">
+При заходе в shell нам показываются смонтированные диски на которые мы можем зайти.</p>
+
+<p><img src="/files/images/z77a-g43/MSI_uefi01.jpg">
+У меня флэшка отображается как fs4 и для экспериментальных загрузок с usb я сделал алиас для загрузки кловера.</p>
+
+<pre><code>alias mac fs4:\EFI\BOOT\CLOVERX64.efi
+</code></pre>
+
+<p>Заходим на флэшку и загрушаем новый новый uefi shell, чтобы добавить свой вариант загрузки</p>
+
+<pre><code>fs4:           # переход в корень флэшки
+shellx64.efi   # запускаем другой shell
+bcfg boot dump # смотрим какие варианты загрузки есть
+</code></pre>
+
+<p>Кловер должен лежать на efi раздели жесткого диска, по умолчянию fs0:</p>
+
+<pre><code>bcfg boot add [номер записи] [Какой из файлов грузить] [название]
+bcfg boot add 00 fs0:\EFI\BOOT\CLOVERX64.efi "Mac OS X"
+</code></pre>
+
+<p>Справка по bcfg</p>
+
+<pre><code>bcfg -? -v
+</code></pre>
+
+<h2>Sandy Bridge</h2>
+
+<p>Владельцам Sandy Bridge нужно будет поправить config.plist.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;key>GenerateIvyStates&lt;/key>
+</span><span class='line'>&lt;string>No&lt;/string></span></code></pre></td></tr></table></div></figure>
+
+
+<p>Также нужно удалить секцию SMBIOS.</p>
+
+<h2>P.S.</h2>
+
+<p>В папочке PostInstall лежит kext для аудио и Kext Utility для установки.
+остальные kext инжектирует кловер.</p>
+
+<ul>
+<li><a href="http://bit.ly/16Fryx7">Полный архив  Clover+OEM+UEFI-BIOS</a> 13Mb</li>
+<li><a href="http://bit.ly/XwMyWm">Отдельно папка OEM</a> 972Kb</li>
+<li><a href="http://bit.ly/10IZo0y">EFI-SHELL</a> 260Kb</li>
+</ul>
+
+</div>
+
+
+<div class="meta">
+	<div class="date"><i class="fa fa-calendar fa-fw"></i>
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-07T12:09:00+07:00" pubdate data-updated="true">Apr 7<span>th</span>, 2013</time></div>
+	<div class="tags"><i class="fa fa-tags fa-fw"></i>
+
+
+	<a class='category' href='/categories/hackintosh/'>hackintosh</a>
+
+
+</div>
+	
+</div></article>
+
+	<div class="share">
+<script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+<div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="icon" data-yashareQuickServices="vkontakte,facebook,twitter,gplus"></div> 
+</div>
+
+
+
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2013
+
+    n0b0dy
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'get9';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://get9.ru//2013/04/07/z77a-g43_3570K/';
+        var disqus_url = 'http://get9.ru//2013/04/07/z77a-g43_3570K/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-37366555-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+(function (d, w, c) {
+    (w[c] = w[c] || []).push(function() {
+        try {
+            w.yaCounter22844767 = new Ya.Metrika({id:22844767, enableAll: true});
+        } catch(e) {}
+    });
+
+    var n = d.getElementsByTagName("script")[0],
+        s = d.createElement("script"),
+        f = function () { n.parentNode.insertBefore(s, n); };
+    s.type = "text/javascript";
+    s.async = true;
+    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+    if (w.opera == "[object Opera]") {
+        d.addEventListener("DOMContentLoaded", f);
+    } else { f(); }
+})(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="//mc.yandex.ru/watch/22844767" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+ 
+
+
+</body>
+</html>

@@ -1,0 +1,252 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Установка hackintosh на MSI Z77A-G43 - Get9</title>
+	<meta name="author" content="n0b0dy">
+
+	
+	<meta name="description" content="Железо Основной проблемой для работы hackintosh является
+процессор, материнская плата и видео карта. И чтобы все завелось, нужно
+чтобы железо было &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/get9/atom.xml" rel="alternate" title="Get9" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+	
+</head>
+
+<body>
+	<header id="header" class="inner"><h1><a id="logo" href="/">Get9</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Блог</a></li>
+	<li><a href="/blog/archives">Архив</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Блог</a></li>
+	<li><a href="/blog/archives">Архив</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:get9.ru/">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		<a class="twitter" href="http://twitter.com/n0b0dy_nvkz" title="Twitter">Twitter</a>
+		
+		
+		<a class="github" href="https://github.com/n0b0dy" title="GitHub">GitHub</a>
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/get9/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:get9.ru/">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Установка hackintosh на MSI Z77A-G43</h2>
+	<div class="entry-content"><h2>Железо</h2>
+
+<p>Основной проблемой для работы hackintosh является
+процессор, материнская плата и видео карта. И чтобы все завелось, нужно
+чтобы железо было максимально похоже на железо оригинальных маков.
+Ставить мак ос будем на следующую конфигурацию:</p>
+
+<ul>
+<li>cpu: i5-3570k</li>
+<li> mb: msi z77a-g43</li>
+<li>video: intel HD4000</li>
+</ul>
+
+
+<!-- more -->
+
+
+<h2>Материнская плата</h2>
+
+<p>msi z77a-g43 не является идеальным вариантом для мак ос, она имеет залоченную
+msr таблицу от записи. Чтобы обойти эту проблему есть несколько способов:</p>
+
+<ul>
+<li>использовать nullcpupowermanagement</li>
+<li>использовать  патченый AppleIntelCpuPowerManagement.kext</li>
+<li>модифицировать UEFI-Bios</li>
+</ul>
+
+
+<p>Вариант с nullcpupowermanagement отпадает сразу так как нам нужен работающий,
+TurboBoost. Патченый AppleIntelCpuPowerManagement.kext уменя на 10.8.2 не
+заработал с теми настройками UEFI которые я хотел. А вот модификация UEFI
+сработала на все 100%.</p>
+
+<p>Есть репозиторий с уже модифицированными UEFI
+<a href="http://biosrepo.wordpress.com/msi/">UEFI-BIOS repository</a> ищем нужный UEFI и прошиваем.
+У msi вы можете предварительно загрузить UEFI с флэшки
+и проверить работу. Более подробно о модификации других UEFI-BIOS
+можно прочитать на <a href="http://www.tonymacx86.com/dsdt/71307-modified-uefi-rom-faq.html#post443477">tonymacx86.com</a></p>
+
+<h2>Крутим DSDT</h2>
+
+<p>Нам не хватает еще DSDT. Можно воспользоваться тем который выкладывают, но
+лучше сделать самим. И тем более нужно делать самим если оборудование отличается.
+Извлекаем DSDT и правим её. Это можно спокойно делать под Windows или Linux.
+<a href="http://legacy.tonymacx86.com/viewtopic.php?f=14&amp;t=68835">Оригинальный гайд по правке DSDT для msi z77a-g43</a>
+или
+<a href="/2012/10/26/z77a-g43-dsdt/"> Перевод правке DSDT для msi z77a-g43 </a></p>
+
+<h2>Kext</h2>
+
+<p>Дальше устанавливаем Mountain Lion на диск с GPT разметкой.
+Что не должно вызвать проблем. И загружаемся.
+Качаем <a href="http://www.tonymacx86.com/downloads.php?do=cat&amp;id=3">MultiBeast</a> (чтобы не искать kext по отдельности) и устанавливаем.
+Отмечаем следующие галочки.
+<img src="/files/images/g43-hackintosh.png" width="200"></p>
+</div>
+
+
+<div class="meta">
+	<div class="date"><i class="fa fa-calendar fa-fw"></i>
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-20T21:15:00+07:00" pubdate data-updated="true">Nov 20<span>th</span>, 2012</time></div>
+	<div class="tags"><i class="fa fa-tags fa-fw"></i>
+
+
+	<a class='category' href='/categories/hackintosh/'>hackintosh</a>
+
+
+</div>
+	
+</div></article>
+
+	<div class="share">
+<script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+<div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="icon" data-yashareQuickServices="vkontakte,facebook,twitter,gplus"></div> 
+</div>
+
+
+
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2013
+
+    n0b0dy
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'get9';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://get9.ru//2012/11/20/z77a-g43-hackintosh/';
+        var disqus_url = 'http://get9.ru//2012/11/20/z77a-g43-hackintosh/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-37366555-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+(function (d, w, c) {
+    (w[c] = w[c] || []).push(function() {
+        try {
+            w.yaCounter22844767 = new Ya.Metrika({id:22844767, enableAll: true});
+        } catch(e) {}
+    });
+
+    var n = d.getElementsByTagName("script")[0],
+        s = d.createElement("script"),
+        f = function () { n.parentNode.insertBefore(s, n); };
+    s.type = "text/javascript";
+    s.async = true;
+    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+    if (w.opera == "[object Opera]") {
+        d.addEventListener("DOMContentLoaded", f);
+    } else { f(); }
+})(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="//mc.yandex.ru/watch/22844767" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+ 
+
+
+</body>
+</html>

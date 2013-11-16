@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Get9]]></title>
+  <link href="http://get9.ru//atom.xml" rel="self"/>
+  <link href="http://get9.ru//"/>
+  <updated>2013-11-09T19:31:05+07:00</updated>
+  <id>http://get9.ru//</id>
+  <author>
+    <name><![CDATA[n0b0dy]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Запуск shell]]></title>
+    <link href="http://get9.ru//2013/10/12/shell-startup-files/"/>
+    <updated>2013-10-12T05:21:00+07:00</updated>
+    <id>http://get9.ru//2013/10/12/shell-startup-files</id>
+    <content type="html"><![CDATA[<p>В разных shell оболочках есть множество файлов запускающихся сразу при запуске, чтобы установить пременные окружения
+и другие функции автолматизации.</p>
+
+<p>Иногда забываеш что и когда запускается и тогда нужно лезть в <code>man</code> что бывает не всегда удобно.</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Заводим hackintosh на z77a-g43 + 3570k]]></title>
+    <link href="http://get9.ru//2013/04/07/z77a-g43_3570K/"/>
+    <updated>2013-04-07T12:09:00+07:00</updated>
+    <id>http://get9.ru//2013/04/07/z77a-g43_3570K</id>
+    <content type="html"><![CDATA[<h2>Кат</h2>
+
+<p>Много времени прошло с тех пор как рассказывал как завести хакинтош на Z77A-G43 и ситуация поменялась в лучшую сторону.
+Поэтому нужна новая инструкция. Сейчас хакинтош на Z77A-G43 + i5 3570k полностью работоспособный и работает стабильно.
+Что проверено недельными испытаниями. Засыпает и просыпается уже неделю без сбоев. На этот раз заводить мы будем все через clover, c UEFI загрузкой.</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Keepass2 настройка работы с буфером обмена под Linux]]></title>
+    <link href="http://get9.ru//2013/02/04/keepass2/"/>
+    <updated>2013-02-04T20:22:00+07:00</updated>
+    <id>http://get9.ru//2013/02/04/keepass2</id>
+    <content type="html"><![CDATA[<p>Keepass2 под линуксом работает с буфером обмена иксов через одно место. Он в принципе копирует но вставить по меню правой кнопки все ровно не получается. Хотя это и зависит от приложения куда вы вставляете. Вот и получается что Keepass то вставляет то не вставляет.
+Но у Keepass2 есть триггеры, что методом костыля и какой то матери позволит решить проблему с буфером обмена.</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Gentoo deploy tools обзор]]></title>
+    <link href="http://get9.ru//2013/01/22/gentoo-deploy-tools-review/"/>
+    <updated>2013-01-22T19:45:00+07:00</updated>
+    <id>http://get9.ru//2013/01/22/gentoo-deploy-tools-review</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/n0b0dy/gentoo-deploy-tools">Gentoo deploy tools</a> - набор маленьких скриптов версии 0.5.0 для облегчения начальной установки Gentoo, чтобы во время разворачивания не делать множество телодвижений.</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Установка hackintosh на MSI Z77A-G43]]></title>
+    <link href="http://get9.ru//2012/11/20/z77a-g43-hackintosh/"/>
+    <updated>2012-11-20T21:15:00+07:00</updated>
+    <id>http://get9.ru//2012/11/20/z77a-g43-hackintosh</id>
+    <content type="html"><![CDATA[<h2>Железо</h2>
+
+<p>Основной проблемой для работы hackintosh является
+процессор, материнская плата и видео карта. И чтобы все завелось, нужно
+чтобы железо было максимально похоже на железо оригинальных маков.
+Ставить мак ос будем на следующую конфигурацию:</p>
+
+<ul>
+<li>cpu: i5-3570k</li>
+<li> mb: msi z77a-g43</li>
+<li>video: intel HD4000</li>
+</ul>
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Создание DSDT для MSI Z77A-G43]]></title>
+    <link href="http://get9.ru//2012/10/26/z77a-g43-dsdt/"/>
+    <updated>2012-10-26T20:39:00+07:00</updated>
+    <id>http://get9.ru//2012/10/26/z77a-g43-dsdt</id>
+    <content type="html"><![CDATA[<h2>Создание DSDT</h2>
+
+<p>План работ:</p>
+
+<ul>
+<li>Извлекаем DSDT</li>
+<li>Исправляем ошибки</li>
+<li>Обзываем девайсы как у Apple</li>
+<li>Добавляем DGTP метод</li>
+</ul>
+
+
+]]></content>
+  </entry>
+  
+</feed>

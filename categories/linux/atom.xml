@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: linux | Get9]]></title>
+  <link href="http://get9.ru//categories/linux/atom.xml" rel="self"/>
+  <link href="http://get9.ru//"/>
+  <updated>2013-11-09T19:31:05+07:00</updated>
+  <id>http://get9.ru//</id>
+  <author>
+    <name><![CDATA[n0b0dy]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Keepass2 настройка работы с буфером обмена под Linux]]></title>
+    <link href="http://get9.ru//2013/02/04/keepass2/"/>
+    <updated>2013-02-04T20:22:00+07:00</updated>
+    <id>http://get9.ru//2013/02/04/keepass2</id>
+    <content type="html"><![CDATA[<p>Keepass2 под линуксом работает с буфером обмена иксов через одно место. Он в принципе копирует но вставить по меню правой кнопки все ровно не получается. Хотя это и зависит от приложения куда вы вставляете. Вот и получается что Keepass то вставляет то не вставляет.
+Но у Keepass2 есть триггеры, что методом костыля и какой то матери позволит решить проблему с буфером обмена.</p>
+
+<!-- more -->
+
+
+<h2>Быстрое решение проблемы.</h2>
+
+<ul>
+<li>Создаем в keepass2 триггер на копирование записи в буфер обмена.</li>
+<li>Действием ставим такую команду, которая и решает все проблемы.
+  $ /bin/bash -c "xsel -b | xsel -ib"</li>
+</ul>
+
+
+<h2>Подробное решение, в картинках и не очень.</h2>
+
+<ul>
+<li>Открываем меню Tools->Triggers</li>
+</ul>
+
+
+<p><img src="/files/images/keepass2/keepass_1.png" title="" ></p>
+
+<ul>
+<li>Жмем Add и пишем название триггера.</li>
+</ul>
+
+
+<p><img src="/files/images/keepass2/keepass_2.png" title="" ></p>
+
+<p>Переходим на вкладку Events. Опять Add и выбираем Copied entry data to clipboard.</p>
+
+<p><img src="/files/images/keepass2/keepass_3.png" title="" ></p>
+
+<p>Дальше переходим на вкладку Action и нажимаем Add. Выбираем Execute command line / url.
+В первое поле добавляем /bin/bash, а в поле arguments добавляем -c "xsel -b | xsel -ib".</p>
+
+<p><img src="/files/images/keepass2/keepass_4.png" title="" ></p>
+
+<p>Все должно работать если у вас установлен xsel. Можно придумать еще много вещей используя триггеры в Keepass2.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Gentoo deploy tools обзор]]></title>
+    <link href="http://get9.ru//2013/01/22/gentoo-deploy-tools-review/"/>
+    <updated>2013-01-22T19:45:00+07:00</updated>
+    <id>http://get9.ru//2013/01/22/gentoo-deploy-tools-review</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/n0b0dy/gentoo-deploy-tools">Gentoo deploy tools</a> - набор маленьких скриптов версии 0.5.0 для облегчения начальной установки Gentoo, чтобы во время разворачивания не делать множество телодвижений.</p>
+
+<!-- more -->
+
+
+<p>Устанавливаются они по умолчанию в $HOME/.gdt и помощью инсталлятора на bash.
+Устанавливать можно 2 способами:</p>
+
+<pre><code>    $ eval "$(wget -O- http://bit.ly/gdt-git)"
+    $ eval "$(wget -O- https://raw.github.com/n0b0dy/gentoo-deploy-tools/master/gdt-installer)" 
+</code></pre>
+
+<h2>gmirror</h2>
+
+<p>Простенькая тулза для показа зеркал с гентой.
+По умолчанию выводит только http зеркала. Чтобы показать все зеркала набираем:</p>
+
+<pre><code>    $ gmirror -p ftp,http,rsync 
+</code></pre>
+
+<p>Для поиска по названию и номеру есть есть флаг -s</p>
+
+<pre><code>    $ gmirror -s/yandex/ #=&gt; http://mirror.yandex.ru/gentoo-distfiles/
+    $ gmirror -s95       #=&gt; http://mirror.yandex.ru/gentoo-distfiles/
+</code></pre>
+
+<p>флаг -n пронумерует все зеркала.</p>
+
+<h2>glist</h2>
+
+<p>Для установки нужно stage3 и portage. glist покажет их url и вы можете их скачать через wget или curl либо gstrap
+glist умеет искать только по ftp и http зеркалам. По умолчанию поиск использует архитектуру ядра под которой вы загружены, предполагая что и устанавливать вы будите на туже архитектуру.
+Поиск по стейджам  ключ -s, по портежам ключ -p.</p>
+
+<pre><code>    $ glist -s -p
+</code></pre>
+
+<p>Также можно использовать номер в списке или регулярное выражение.</p>
+
+<pre><code>    $ glist -s2
+    $ glist -p/latest/
+</code></pre>
+
+<p>чтобы пронумеровать вывод также как и с gmirrors есть ключ -n.</p>
+
+<ul>
+<li>-m задает зеркало где производится поиск.</li>
+<li>-a Указывает на архитектуру, по умолчанию такой же как и ваша текущая архитектура ядра.</li>
+</ul>
+
+
+<p>Показанные url можно записать в переменные окружения.</p>
+
+<h2>gstrap</h2>
+
+<p>Скачивает stage3, portage и распаковывает в указанную директорию.
+Скачать и распаковать stage3, portage в /mnt</p>
+
+<pre><code>    $ gstrap -s stage_url -p portage_url /mnt
+</code></pre>
+
+<p>Урлы показывает команда glist.</p>
+
+<h2>gchroot</h2>
+
+<p>Чтобы при создании chroot не монтировать руками /proc, /sys, /dev, /tmp и не копировать resolv.conf.
+Утилита gchroot, которая сделает это все за вас.
+Создать chroot окружение и войдет в него.</p>
+
+<pre><code>    $ gchroot /mnt/dev
+</code></pre>
+
+<p>Просто создаст chroot окружение и входить нужно будет уже ручками.</p>
+
+<pre><code>    $ gchroot -m /mnt 
+</code></pre>
+
+<p>Удобно от монтировать все дерево фс можно командой.</p>
+
+<pre><code>    $ umount -l /mnt
+</code></pre>
+
+<h2>Итого</h2>
+
+<p>Для быстрой установки если вас устраивает зеркало яндекса можно просто использовать glist и gstrap.</p>
+
+<pre><code>    $ export stage3=$(glist -s1)         #присваиваем url stage3 переменной
+    $ export portage=$(glist -p/latest/) #присваиваем url portage переменной
+    $ mount /dev/sd[x] /mnt              #монтируем партицию
+    $ gstrap -s $stage3 -p $portage /mnt #загружаем и распаковываем stage3,portage
+    $ gchroot /mnt                       #входим в chroot окружение
+</code></pre>
+
+<p>дальше уже компиляция ядра, установка grub2 и настройки самой системы.</p>
+]]></content>
+  </entry>
+  
+</feed>

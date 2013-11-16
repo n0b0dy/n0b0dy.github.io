@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: shell | Get9]]></title>
+  <link href="http://get9.ru//categories/shell/atom.xml" rel="self"/>
+  <link href="http://get9.ru//"/>
+  <updated>2013-11-09T19:31:05+07:00</updated>
+  <id>http://get9.ru//</id>
+  <author>
+    <name><![CDATA[n0b0dy]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Запуск shell]]></title>
+    <link href="http://get9.ru//2013/10/12/shell-startup-files/"/>
+    <updated>2013-10-12T05:21:00+07:00</updated>
+    <id>http://get9.ru//2013/10/12/shell-startup-files</id>
+    <content type="html"><![CDATA[<p>В разных shell оболочках есть множество файлов запускающихся сразу при запуске, чтобы установить пременные окружения
+и другие функции автолматизации.</p>
+
+<p>Иногда забываеш что и когда запускается и тогда нужно лезть в <code>man</code> что бывает не всегда удобно.</p>
+
+<!-- more -->
+
+
+<p>Shell бывает:</p>
+
+<ul>
+<li>login - тот который прописан увас в /etc/passwd ну или запуск со флагом включяющий эту функцию</li>
+<li>интерактивный - тот под которым вы работаете в интерактивном режиме.</li>
+<li>обычный - это тот в котором запускаються скрипты.</li>
+</ul>
+
+
+<p>shell  который вы по умолчанию запускаете из иксов в виртуальном-терминале не являеться логин сшеллом, потому что вы уже авторизированы,</p>
+
+<h2>bash</h2>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th align="left">                </th>
+<th align="center">   </th>
+<th align="left">           </th>
+<th align="left">   login  </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td align="left">                </td>
+<td align="center">   </td>
+<td align="left">   yes     </td>
+<td align="left">   no     </td>
+</tr>
+<tr>
+<td></td>
+<td align="left"> <strong>interactive</strong></td>
+<td align="center">yes</td>
+<td align="left"> <em>profile</em> </td>
+<td align="left">  <em>bashrc</em> </td>
+</tr>
+<tr>
+<td></td>
+<td align="left">                </td>
+<td align="center"> no</td>
+<td align="left"> <em>profile</em> </td>
+<td align="left">  <em>-</em>      </td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>zsh</h2>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th align="left">                </th>
+<th align="center">   </th>
+<th align="left">                                </th>
+<th align="left">   login         </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td align="left">                </td>
+<td align="center">   </td>
+<td align="left">   yes                          </td>
+<td align="left">   no     </td>
+</tr>
+<tr>
+<td></td>
+<td align="left"> <strong>interactive</strong></td>
+<td align="center">yes</td>
+<td align="left"> <em>zshenv zprofile zshrc zlogin</em> _</td>
+<td align="left">_ <em>zshenv zshrc</em>     </td>
+</tr>
+<tr>
+<td></td>
+<td align="left">                </td>
+<td align="center"> no</td>
+<td align="left"> <em>zshenv zprofile zlogin</em>       </td>
+<td align="left">  <em>zshenv</em></td>
+</tr>
+</tbody>
+</table>
+
+]]></content>
+  </entry>
+  
+</feed>

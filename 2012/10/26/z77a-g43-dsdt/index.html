@@ -1,0 +1,504 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Создание DSDT для MSI Z77A-G43 - Get9</title>
+	<meta name="author" content="n0b0dy">
+
+	
+	<meta name="description" content="Создание DSDT План работ: Извлекаем DSDT
+Исправляем ошибки
+Обзываем девайсы как у Apple
+Добавляем DGTP метод 1.Запускаем DSDT редактор и выбираем &# &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/get9/atom.xml" rel="alternate" title="Get9" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+	
+</head>
+
+<body>
+	<header id="header" class="inner"><h1><a id="logo" href="/">Get9</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Блог</a></li>
+	<li><a href="/blog/archives">Архив</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Блог</a></li>
+	<li><a href="/blog/archives">Архив</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:get9.ru/">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		<a class="twitter" href="http://twitter.com/n0b0dy_nvkz" title="Twitter">Twitter</a>
+		
+		
+		<a class="github" href="https://github.com/n0b0dy" title="GitHub">GitHub</a>
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/get9/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:get9.ru/">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Создание DSDT для MSI Z77A-G43</h2>
+	<div class="entry-content"><h2>Создание DSDT</h2>
+
+<p>План работ:</p>
+
+<ul>
+<li>Извлекаем DSDT</li>
+<li>Исправляем ошибки</li>
+<li>Обзываем девайсы как у Apple</li>
+<li>Добавляем DGTP метод</li>
+</ul>
+
+
+<!-- more -->
+
+
+<p>1.Запускаем DSDT редактор и выбираем &#8220;File > Extract DSDT&#8221;.</p>
+
+<p>2.В DSDT редакторе выбираем &#8220;IASL > Compile&#8221;, в появившемся окне будет куча
+ошибок и предупреждений. Двойной клик на ошибке и переходим на место проблемы.</p>
+
+<p><strong>2226 Warning ResourceTag larger than Field (Tag: 64 bits, Field: 32 bits)</strong></p>
+
+<figure class='code'><figcaption><span>Было </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>CreateDWordField (BUF0, \_SB.PCI0._Y0F._LEN, MSLN)</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>Стало </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>CreateQWordField (BUF0, \_SB.PCI0._Y0F._LEN, MSLN)</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>3318 Warning Result is not used, possible operator timeout will be missed</strong></p>
+
+<figure class='code'><figcaption><span>Было</span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Acquire (MUT0, 0x0FFF)</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>Стало</span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Acquire (MUT0, 0xFFFF)</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>8787 Warning Not all control paths return a value (_DSM)</strong></p>
+
+<p><strong>8787 Warning Reserved method must return a value (Integer/String/Buffer/Package/Reference required for _DSM)</strong></p>
+
+<p>Нужно добавить <code>Return (Zero)</code> перед последней скобкой метода.</p>
+
+<figure class='code'><figcaption><span>Было  </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Method (_DSM, 4, Serialized)
+</span><span class='line'>{
+</span><span class='line'>    Name (DRET, Buffer (0x04)
+</span><span class='line'>    {
+</span><span class='line'>         0x00
+</span><span class='line'>    })
+</span><span class='line'>    If (LEqual (Arg0, Buffer (0x10)
+</span><span class='line'>            {
+</span><span class='line'>                /* 0000 */   0xE1, 0x75, 0x39, 0x6F, 0x82, 0x7A, 0x67, 0x4F,
+</span><span class='line'>                /* 0008 */   0x8B, 0x97, 0x15, 0xBE, 0xE0, 0x60, 0xBE, 0xDF
+</span><span class='line'>            }))
+</span><span class='line'>    {
+</span><span class='line'>        If (LEqual (Arg2, Zero))
+</span><span class='line'>        {
+</span><span class='line'>            CreateWordField (DRET, Zero, F0SS)
+</span><span class='line'>            Store (0x02, F0SS)
+</span><span class='line'>            Return (DRET)
+</span><span class='line'>        }
+</span><span class='line'>        If (LEqual (Arg2, One))
+</span><span class='line'>        {
+</span><span class='line'>            If (LEqual (^^PEG0.PEGP.LNKV, 0x03))
+</span><span class='line'>            {
+</span><span class='line'>                Return (Zero)
+</span><span class='line'>            }
+</span><span class='line'>            Return (One)
+</span><span class='line'>        }
+</span><span class='line'>    }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>Стало</span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Method (_DSM, 4, Serialized)
+</span><span class='line'>{
+</span><span class='line'>    Name (DRET, Buffer (0x04)
+</span><span class='line'>    {
+</span><span class='line'>         0x00
+</span><span class='line'>    })
+</span><span class='line'>    If (LEqual (Arg0, Buffer (0x10)
+</span><span class='line'>            {
+</span><span class='line'>                /* 0000 */   0xE1, 0x75, 0x39, 0x6F, 0x82, 0x7A, 0x67, 0x4F,
+</span><span class='line'>                /* 0008 */   0x8B, 0x97, 0x15, 0xBE, 0xE0, 0x60, 0xBE, 0xDF
+</span><span class='line'>            }))
+</span><span class='line'>    {
+</span><span class='line'>        If (LEqual (Arg2, Zero))
+</span><span class='line'>        {
+</span><span class='line'>            CreateWordField (DRET, Zero, F0SS)
+</span><span class='line'>            Store (0x02, F0SS)
+</span><span class='line'>            Return (DRET)
+</span><span class='line'>        }
+</span><span class='line'>        If (LEqual (Arg2, One))
+</span><span class='line'>        {
+</span><span class='line'>            If (LEqual (^^PEG0.PEGP.LNKV, 0x03))
+</span><span class='line'>            {
+</span><span class='line'>                Return (Zero)
+</span><span class='line'>            }
+</span><span class='line'>            Return (One)
+</span><span class='line'>        }
+</span><span class='line'>    }
+</span><span class='line'>    Return (Zero)
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>10113 Warning Not all control paths return a value (_HID)</strong></p>
+
+<p><strong>10113 Warning Reserved method must return a value (Integer/String required for _HID)</strong></p>
+
+<figure class='code'><figcaption><span>Было </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Method (_HID, 0, NotSerialized)
+</span><span class='line'>{
+</span><span class='line'>    If (TCMF) {}
+</span><span class='line'>    Else
+</span><span class='line'>    {
+</span><span class='line'>        Return (0x310CD041)
+</span><span class='line'>    }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>Стало</span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Method (_HID, 0, NotSerialized)
+</span><span class='line'>{
+</span><span class='line'>    If (TCMF)
+</span><span class='line'>    {
+</span><span class='line'>        Return (Zero)
+</span><span class='line'>    }
+</span><span class='line'>    Else
+</span><span class='line'>    {
+</span><span class='line'>        Return (0x310CD041)
+</span><span class='line'>    }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>5626 Remark Use of compiler reserved name (_T_0)</strong></p>
+
+<p><strong>10350 Remark Use of compiler reserved name (_T_1)</strong></p>
+
+<p>Чтобы избавится от предупреждений заменяем <code>_T_</code> на <code>T_</code></p>
+
+<p>3.Переименовываем девайсы</p>
+
+<p>Заменяем все <code>GFX0</code> на <code>IGPU</code>
+Заменяем все <code>COPR</code> на <code>MATH</code></p>
+
+<ol>
+<li>Добавляем DGTP метод</li>
+</ol>
+
+
+<p>Метод нужен для корректной работы патченого HDEF драйвера.
+Вставляем данный метод перед последней скобкой <code>}</code>, после <code>WAK</code> метода.</p>
+
+<figure class='code'><figcaption><span>Вставить</span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Method (DTGP, 5, NotSerialized)
+</span><span class='line'>{
+</span><span class='line'>    If (LEqual (Arg0, Buffer (0x10)
+</span><span class='line'>            {
+</span><span class='line'>                /* 0000 */    0xC6, 0xB7, 0xB5, 0xA0, 0x18, 0x13, 0x1C, 0x44,
+</span><span class='line'>                /* 0008 */    0xB0, 0xC9, 0xFE, 0x69, 0x5E, 0xAF, 0x94, 0x9B
+</span><span class='line'>            }))
+</span><span class='line'>    {
+</span><span class='line'>        If (LEqual (Arg1, One))
+</span><span class='line'>        {
+</span><span class='line'>            If (LEqual (Arg2, Zero))
+</span><span class='line'>            {
+</span><span class='line'>                Store (Buffer (One)
+</span><span class='line'>                    {
+</span><span class='line'>                        0x03
+</span><span class='line'>                    }, Arg4)
+</span><span class='line'>                Return (One)
+</span><span class='line'>            }
+</span><span class='line'>            If (LEqual (Arg2, One))
+</span><span class='line'>            {
+</span><span class='line'>                Return (One)
+</span><span class='line'>            }
+</span><span class='line'>        }
+</span><span class='line'>    }
+</span><span class='line'>    Store (Buffer (One)
+</span><span class='line'>        {
+</span><span class='line'>            0x00
+</span><span class='line'>        }, Arg4)
+</span><span class='line'>    Return (Zero)
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+</div>
+
+
+<div class="meta">
+	<div class="date"><i class="fa fa-calendar fa-fw"></i>
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-26T20:39:00+07:00" pubdate data-updated="true">Oct 26<span>th</span>, 2012</time></div>
+	<div class="tags"><i class="fa fa-tags fa-fw"></i>
+
+
+	<a class='category' href='/categories/hackintosh/'>hackintosh</a>
+
+
+</div>
+	
+</div></article>
+
+	<div class="share">
+<script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+<div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="icon" data-yashareQuickServices="vkontakte,facebook,twitter,gplus"></div> 
+</div>
+
+
+
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2013
+
+    n0b0dy
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'get9';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://get9.ru//2012/10/26/z77a-g43-dsdt/';
+        var disqus_url = 'http://get9.ru//2012/10/26/z77a-g43-dsdt/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-37366555-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+(function (d, w, c) {
+    (w[c] = w[c] || []).push(function() {
+        try {
+            w.yaCounter22844767 = new Ya.Metrika({id:22844767, enableAll: true});
+        } catch(e) {}
+    });
+
+    var n = d.getElementsByTagName("script")[0],
+        s = d.createElement("script"),
+        f = function () { n.parentNode.insertBefore(s, n); };
+    s.type = "text/javascript";
+    s.async = true;
+    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+    if (w.opera == "[object Opera]") {
+        d.addEventListener("DOMContentLoaded", f);
+    } else { f(); }
+})(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="//mc.yandex.ru/watch/22844767" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+ 
+
+
+</body>
+</html>

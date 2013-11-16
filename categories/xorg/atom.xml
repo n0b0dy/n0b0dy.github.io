@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: xorg | Get9]]></title>
+  <link href="http://get9.ru//categories/xorg/atom.xml" rel="self"/>
+  <link href="http://get9.ru//"/>
+  <updated>2013-11-09T19:31:05+07:00</updated>
+  <id>http://get9.ru//</id>
+  <author>
+    <name><![CDATA[n0b0dy]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Keepass2 настройка работы с буфером обмена под Linux]]></title>
+    <link href="http://get9.ru//2013/02/04/keepass2/"/>
+    <updated>2013-02-04T20:22:00+07:00</updated>
+    <id>http://get9.ru//2013/02/04/keepass2</id>
+    <content type="html"><![CDATA[<p>Keepass2 под линуксом работает с буфером обмена иксов через одно место. Он в принципе копирует но вставить по меню правой кнопки все ровно не получается. Хотя это и зависит от приложения куда вы вставляете. Вот и получается что Keepass то вставляет то не вставляет.
+Но у Keepass2 есть триггеры, что методом костыля и какой то матери позволит решить проблему с буфером обмена.</p>
+
+<!-- more -->
+
+
+<h2>Быстрое решение проблемы.</h2>
+
+<ul>
+<li>Создаем в keepass2 триггер на копирование записи в буфер обмена.</li>
+<li>Действием ставим такую команду, которая и решает все проблемы.
+  $ /bin/bash -c "xsel -b | xsel -ib"</li>
+</ul>
+
+
+<h2>Подробное решение, в картинках и не очень.</h2>
+
+<ul>
+<li>Открываем меню Tools->Triggers</li>
+</ul>
+
+
+<p><img src="/files/images/keepass2/keepass_1.png" title="" ></p>
+
+<ul>
+<li>Жмем Add и пишем название триггера.</li>
+</ul>
+
+
+<p><img src="/files/images/keepass2/keepass_2.png" title="" ></p>
+
+<p>Переходим на вкладку Events. Опять Add и выбираем Copied entry data to clipboard.</p>
+
+<p><img src="/files/images/keepass2/keepass_3.png" title="" ></p>
+
+<p>Дальше переходим на вкладку Action и нажимаем Add. Выбираем Execute command line / url.
+В первое поле добавляем /bin/bash, а в поле arguments добавляем -c "xsel -b | xsel -ib".</p>
+
+<p><img src="/files/images/keepass2/keepass_4.png" title="" ></p>
+
+<p>Все должно работать если у вас установлен xsel. Можно придумать еще много вещей используя триггеры в Keepass2.</p>
+]]></content>
+  </entry>
+  
+</feed>
