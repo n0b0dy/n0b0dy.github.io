@@ -4,7 +4,7 @@
   <title><![CDATA[Category: shell | Get9]]></title>
   <link href="http://n0b0dy.github.io/categories/shell/atom.xml" rel="self"/>
   <link href="http://n0b0dy.github.io/"/>
-  <updated>2013-11-17T11:25:27+07:00</updated>
+  <updated>2013-11-18T16:49:23+07:00</updated>
   <id>http://n0b0dy.github.io/</id>
   <author>
     <name><![CDATA[n0b0dy]]></name>
@@ -39,77 +39,65 @@
 
 <h2>bash</h2>
 
-<table>
-<thead>
-<tr>
-<th></th>
-<th align="left">                </th>
-<th align="center">   </th>
-<th align="left">           </th>
-<th align="left">   login  </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td align="left">                </td>
-<td align="center">   </td>
-<td align="left">   yes     </td>
-<td align="left">   no     </td>
-</tr>
-<tr>
-<td></td>
-<td align="left"> <strong>interactive</strong></td>
-<td align="center">yes</td>
-<td align="left"> <em>profile</em> </td>
-<td align="left">  <em>bashrc</em> </td>
-</tr>
-<tr>
-<td></td>
-<td align="left">                </td>
-<td align="center"> no</td>
-<td align="left"> <em>profile</em> </td>
-<td align="left">  <em>-</em>      </td>
-</tr>
-</tbody>
+<table id="table">
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th align="center" colspan="2">   login  </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left"></td>
+      <td align="center"></td>
+      <td align="center">yes</td>
+      <td align="center">no</td>
+    </tr>
+    <tr>
+      <td align="left" rowspan="2" ><strong>interactive</strong></td>
+      <td align="center">yes</td>
+      <td align="center">profile</td>
+      <td align="center">bashrc</td>
+    </tr>
+    <tr>
+      <td align="center">no</td>
+      <td align="left">profile</td>
+      <td align="center">-</td>
+    </tr>
+  </tbody>
 </table>
 
 
 <h2>zsh</h2>
 
-<table>
-<thead>
-<tr>
-<th></th>
-<th align="left">                </th>
-<th align="center">   </th>
-<th align="left">                                </th>
-<th align="left">   login         </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td align="left">                </td>
-<td align="center">   </td>
-<td align="left">   yes                          </td>
-<td align="left">   no     </td>
-</tr>
-<tr>
-<td></td>
-<td align="left"> <strong>interactive</strong></td>
-<td align="center">yes</td>
-<td align="left"> <em>zshenv zprofile zshrc zlogin</em> _</td>
-<td align="left">_ <em>zshenv zshrc</em>     </td>
-</tr>
-<tr>
-<td></td>
-<td align="left">                </td>
-<td align="center"> no</td>
-<td align="left"> <em>zshenv zprofile zlogin</em>       </td>
-<td align="left">  <em>zshenv</em></td>
-</tr>
-</tbody>
+<table id="table">
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th align="center" colspan="2">   login  </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left"></td>
+      <td align="center"></td>
+      <td align="center">yes</td>
+      <td align="center">no</td>
+    </tr>
+    <tr>
+      <td align="left" rowspan="2" ><strong>interactive</strong></td>
+      <td align="center">yes</td>
+      <td align="center">zshenv zprofile zshrc zlogin</td>
+      <td align="center">zshenv zshrc</td>
+    </tr>
+    <tr>
+      <td align="center">no</td>
+      <td align="left">zshenv zprofile zlogin</td>
+      <td align="center">zshenv</td>
+    </tr>
+  </tbody>
 </table>
 
 ]]></content>
