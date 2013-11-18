@@ -4,7 +4,7 @@
   <title><![CDATA[Category: hackintosh | Get9]]></title>
   <link href="http://n0b0dy.github.io/categories/hackintosh/atom.xml" rel="self"/>
   <link href="http://n0b0dy.github.io/"/>
-  <updated>2013-11-18T17:20:05+07:00</updated>
+  <updated>2013-11-18T19:43:01+07:00</updated>
   <id>http://n0b0dy.github.io/</id>
   <author>
     <name><![CDATA[n0b0dy]]></name>
@@ -40,16 +40,15 @@ Clover пропатчит kext на лету, но сон работать не 
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;key>KernelAndKextPatches&lt;/key>&lt;/p>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'> <span class="nt">&lt;key&gt;</span>KernelAndKextPatches<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'> <span class="nt">&lt;dict&gt;&lt;/p&gt;</span>
 </span><span class='line'>
-</span><span class='line'>&lt;pre>&lt;code>&lt;dict&gt;
-</span><span class='line'>    &lt;key&gt;AsusAICPUPM&lt;/key&gt;
-</span><span class='line'>    &lt;string&gt;Yes&lt;/string&gt;
-</span><span class='line'>&lt;/dict&gt;
-</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span> <span class="ni">&amp;lt;</span>key<span class="ni">&amp;gt;</span>AsusAICPUPM<span class="ni">&amp;lt;</span>/key<span class="ni">&amp;gt;</span>
+</span><span class='line'> <span class="ni">&amp;lt;</span>string<span class="ni">&amp;gt;</span>Yes<span class="ni">&amp;lt;</span>/string<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
 </span><span class='line'>
-</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></notextile></div>
+</span><span class='line'><span class="nt">&lt;p&gt;</span> <span class="nt">&lt;/dict&gt;&lt;br/&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 Если нужен сон, то нужно перепрошить UEFI-BIOS на модифицированный. В архиве версия 2.8.</p>
 
 <h2>UEFI-BIOS</h2>
@@ -105,8 +104,9 @@ bcfg boot add 00 fs0:\EFI\BOOT\CLOVERX64.efi "Mac OS X"
 <p>Владельцам Sandy Bridge нужно будет поправить config.plist.
 <div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;key>GenerateIvyStates&lt;/key>
-</span><span class='line'>&lt;string>No&lt;/string></span></code></pre></td></tr></table></div></figure></notextile></div>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;key&gt;</span>GenerateIvyStates<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'><span class="nt">&lt;string&gt;</span>No<span class="nt">&lt;/string&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 Также нужно удалить секцию SMBIOS.</p>
 
 <h2>P.S.</h2>

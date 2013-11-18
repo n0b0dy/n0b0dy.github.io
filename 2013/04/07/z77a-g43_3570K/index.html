@@ -99,11 +99,12 @@ Clover пропатчит kext на лету, но сон работать не 
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;key>KernelAndKextPatches&lt;/key>
-</span><span class='line'>    &lt;dict>
-</span><span class='line'>        &lt;key>AsusAICPUPM&lt;/key>
-</span><span class='line'>        &lt;string>Yes&lt;/string>
-</span><span class='line'>    &lt;/dict></span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'> <span class="nt">&lt;key&gt;</span>KernelAndKextPatches<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'> <span class="nt">&lt;dict&gt;</span>
+</span><span class='line'>     <span class="nt">&lt;key&gt;</span>AsusAICPUPM<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>     <span class="nt">&lt;string&gt;</span>Yes<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'> <span class="nt">&lt;/dict&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>Если нужен сон, то нужно перепрошить UEFI-BIOS на модифицированный. В архиве версия 2.8.</p>
@@ -162,8 +163,9 @@ bcfg boot add 00 fs0:\EFI\BOOT\CLOVERX64.efi "Mac OS X"
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;key>GenerateIvyStates&lt;/key>
-</span><span class='line'>&lt;string>No&lt;/string></span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;key&gt;</span>GenerateIvyStates<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'><span class="nt">&lt;string&gt;</span>No<span class="nt">&lt;/string&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>Также нужно удалить секцию SMBIOS.</p>
