@@ -4,7 +4,7 @@
   <title><![CDATA[Get9]]></title>
   <link href="http://n0b0dy.github.io/atom.xml" rel="self"/>
   <link href="http://n0b0dy.github.io/"/>
-  <updated>2013-11-18T19:43:01+07:00</updated>
+  <updated>2013-11-18T20:18:40+07:00</updated>
   <id>http://n0b0dy.github.io/</id>
   <author>
     <name><![CDATA[n0b0dy]]></name>
@@ -19,9 +19,9 @@
     <updated>2013-10-12T05:21:00+07:00</updated>
     <id>http://n0b0dy.github.io/2013/10/12/shell-startup-files</id>
     <content type="html"><![CDATA[<p>В разных shell оболочках есть множество файлов запускающихся сразу при запуске, чтобы установить пременные окружения
-и другие функции автолматизации.</p>
+и другие функции автоматизации.</p>
 
-<p>Временами это вылетает из головы а лезть в <code>man</code> неохота? Так что это заметка скорее для себя, но если кому то она окажется полезной это хороше.</p>
+<p>Временами это вылетает из головы, а лезть в <code>man</code> неохота. Так что это заметка скорее для себя.</p>
 
 ]]></content>
   </entry>
