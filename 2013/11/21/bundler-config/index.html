@@ -1,0 +1,260 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Bundler config - Get9</title>
+	<meta name="author" content="n0b0dy">
+
+	
+	<meta name="description" content="Конфиги в bundler мало освещены в интернете. Это и понятно, зачем лазить под капот автомобиля если машина отлично ездит.
+Но правило это действует &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/get9/atom.xml" rel="alternate" title="Get9" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+	
+</head>
+
+<body>
+	<header id="header" class="inner"><h1><a id="logo" href="/">Get9</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Блог</a></li>
+	<li><a href="/blog/archives">Архив</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Блог</a></li>
+	<li><a href="/blog/archives">Архив</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:n0b0dy.github.io">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		<a class="twitter" href="http://twitter.com/n0b0dy_nvkz" title="Twitter">Twitter</a>
+		
+		
+		<a class="github" href="https://github.com/n0b0dy" title="GitHub">GitHub</a>
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/get9/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:n0b0dy.github.io">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Bundler config</h2>
+	<div class="entry-content"><p>Конфиги в bundler мало освещены в интернете. Это и понятно, зачем лазить под капот автомобиля если машина отлично ездит.
+Но правило это действует пока машина не сломалась. Так что рассмотрим конфиги bundler поближе в придачу с основными командами.</p>
+
+<!-- more -->
+
+
+<h2>Конфиг</h2>
+
+<p>Конфиги bundler хранятся в формате yaml что довольног удобно.
+bundler имеет 2 конфига - локальный(local) и глобальный(global).
+Глобальный конфиг находиться в домашней директории  ~/.bundle/config, а локальный находиться в папке вашего приложения .bundle/config.
+Папка вашего приложения это там где находиться ваш Gemfile.</p>
+
+<p>В конфигах хранятся переменные влияющие на работу.
+Перечислим основные из них.</p>
+
+<ul>
+<li>BUNDLE_PATH    - Куда будут устанавливаться гемы, по умолчанию в $GEM_HOME.</li>
+<li>BUNDLE_FROZEN  - Замораживать или нет Gemfile,  по умолчанию заморожен.</li>
+<li>BUNDLE_BIN     - Путь куда устанавливать исполняемые файлы из гемов.</li>
+<li>BUNDLE_GEMFILE - Имя файла со списком гемов, по умолчанию Gemfile</li>
+<li>BUNDLE_DISABLE_SHARED_GEMS - запрещает использовать общие гемы установленные в gem, лучше просто так не трогать и не мешать локальные гемы приложения с гемами общими.</li>
+</ul>
+
+
+<p>Это не не все переменные но основные, которые приходиться использовать.</p>
+
+<h2>Использование Bundler</h2>
+
+<ul>
+<li><p><code>bundle config</code> показать вонфиг
+также вы можите установить значение для конфига.</p></li>
+<li><ul>
+<li><code>--local</code> использовать локальный конфиг приложения</li>
+</ul>
+</li>
+<li><ul>
+<li><code>--global</code> использовать глобальный конфиг <code>~/bundle/config</code>, по умолчанию используется именно глобальный конфиг. Таким способом вы можите устанавливать любые переменные в конфиге бандлера.</li>
+</ul>
+</li>
+<li><ul>
+<li><code>--delete &lt;name&gt;</code> удалить переменную из конфига.</li>
+</ul>
+</li>
+<li><p><code>bundle install</code> Установка гемов из репозитория</p></li>
+<li><ul>
+<li><code>--local</code>   устанавливать гемы из vendor/cache</li>
+</ul>
+</li>
+<li><ul>
+<li><code>--binstubs</code> устанавливает исполняемые файлы из ваших гемов по умолчанию в деректорию bin в вашем приложении
+Такого же эффекта можно добиться и для отдельных гемов использовав комманду</li>
+</ul>
+</li>
+<li><p><code>bundle binstubs &lt;name&gt;</code> для отдельных гемово.</p></li>
+<li><p><code>bundle package</code> Копирует гемы в vendor/cache для последующей локальной установки установки, что может быть полезно при дeплои на сервер</p></li>
+<li><code>bundle help</code> выведет описание всех доступных команд</li>
+<li><code>bundle help &lt;name&gt;</code> подробное описание конкретной комманды</li>
+</ul>
+
+
+<p>Команды бандлера ведут себя аналогично командам gem и поддерживают сокращение, хотя если у вас автокомплит в этом нет необходимости.</p>
+
+<p>Собственно не какой особой магии bundler не несет, он просто оперирует переменными.
+В версии 1.4 появилась параллельная установка, плагин bundler из oh-my-zsh поддерживает её автоматически.</p>
+</div>
+
+
+<div class="meta">
+	<div class="date"><i class="fa fa-calendar fa-fw"></i>
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-21T16:30:00+07:00" pubdate data-updated="true">Nov 21<span>st</span>, 2013</time></div>
+	<div class="tags"><i class="fa fa-tags fa-fw"></i>
+
+
+	<a class='category' href='/categories/bundler/'>bundler</a>, <a class='category' href='/categories/ruby/'>ruby</a>
+
+
+</div>
+	
+</div></article>
+
+	<div class="share">
+<script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+<div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="icon" data-yashareQuickServices="vkontakte,facebook,twitter,gplus"></div> 
+</div>
+
+
+
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2013
+
+    n0b0dy
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'get9';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://n0b0dy.github.io/2013/11/21/bundler-config/';
+        var disqus_url = 'http://n0b0dy.github.io/2013/11/21/bundler-config/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-37366555-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+(function (d, w, c) {
+    (w[c] = w[c] || []).push(function() {
+        try {
+            w.yaCounter22844767 = new Ya.Metrika({id:22844767, enableAll: true});
+        } catch(e) {}
+    });
+
+    var n = d.getElementsByTagName("script")[0],
+        s = d.createElement("script"),
+        f = function () { n.parentNode.insertBefore(s, n); };
+    s.type = "text/javascript";
+    s.async = true;
+    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+    if (w.opera == "[object Opera]") {
+        d.addEventListener("DOMContentLoaded", f);
+    } else { f(); }
+})(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="//mc.yandex.ru/watch/22844767" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+ 
+
+
+</body>
+</html>
